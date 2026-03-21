@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测试复习知识库</title>
+  <meta name="description" content="测试与技术基础复习知识库" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-badge">QA</div>
+        <div class="brand-text">
+          <h1>测试复习知识库</h1>
+          <p>左侧导航，右侧单篇阅读</p>
+        </div>
+      </div>
+
+      <div class="search-panel">
+        <input
+          id="searchInput"
+          class="search-input"
+          type="text"
+          placeholder="搜索模块或文章标题..."
+          autocomplete="off"
+        />
+      </div>
+
+      <nav id="navContainer" class="nav-container"></nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="切换导航">☰</button>
+        <div class="topbar-meta">
+          <div class="crumb" id="breadcrumb">欢迎页</div>
+          <div class="sub-crumb" id="subBreadcrumb">请选择左侧条目开始阅读</div>
+        </div>
+      </header>
+
+      <section class="content-wrap">
+        <article class="doc-card">
+          <div class="doc-header">
+            <div>
+              <div class="doc-category" id="docCategory">开始使用</div>
+              <h2 class="doc-title" id="docTitle">欢迎来到你的复习站</h2>
+            </div>
+          </div>
+
+          <div class="doc-body markdown-body" id="docContent">
+            正在加载内容...
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
