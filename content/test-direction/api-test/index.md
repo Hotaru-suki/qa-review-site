@@ -11,33 +11,33 @@
 ## 本章内容结构
 
 ### 基础认知
-- [接口测试概述](.content/test-direction/api-test/api-testing-overview.md)
-- [接口测试常见流程](.content/test-direction/api-test/api-testing-process.md)
-- [接口测试用例设计思路](.content/test-direction/api-test/api-testing-case-design.md)
+- [接口测试概述](./api-testing-overview.md)
+- [接口测试常见流程](./api-testing-process.md)
+- [接口测试用例设计思路](./api-testing-case-design.md)
 
 ### 核心质量维度
-- [可用性测试](.content/test-direction/api-test/availability-testing.md)
-- [正确性测试](.content/test-direction/api-test/correctness-testing.md)
-- [稳定性测试](.content/test-direction/api-test/stability-testing.md)
-- [健壮性测试](.content/test-direction/api-test/robustness-testing.md)
-- [性能测试](.content/test-direction/api-test/performance-testing.md)
-- [数据一致性测试](.content/test-direction/api-test/data-consistency-testing.md)
-- [幂等性测试](.content/test-direction/api-test/idempotency-testing.md)
-- [安全性测试（接口视角）](.content/test-direction/api-test/api-security-testing.md)
-- [兼容性测试](.content/test-direction/api-test/compatibility-testing.md)
+- [可用性测试](./availability-testing.md)
+- [正确性测试](./correctness-testing.md)
+- [稳定性测试](./stability-testing.md)
+- [健壮性测试](./robustness-testing.md)
+- [性能测试](./performance-testing.md)
+- [数据一致性测试](./api-test/data-consistency-testing.md)
+- [幂等性测试](./api-test/idempotency-testing.md)
+- [安全性测试（接口视角）](./api-test/api-security-testing.md)
+- [兼容性测试](./compatibility-testing.md)
 
 ### 工具与实践
-- [Postman / Apifox 调试](.content/test-direction/api-test/api-tools-postman-apifox.md)
-- [pytest + requests 接口自动化](.content/test-direction/api-test/api-automation-pytest-requests.md)
-- [JMeter 接口性能测试](.content/test-direction/api-test/api-performance-with-jmeter.md)
-- [MySQL / Redis 数据校验](.content/test-direction/api-test/api-data-validation.md)
-- [Mock 在接口测试中的应用](.content/test-direction/api-test/api-mock-testing.md)
+- [Postman / Apifox 调试](./api-tools-postman-apifox.md)
+- [pytest + requests 接口自动化](./api-automation-pytest-requests.md)
+- [JMeter 接口性能测试](./api-performance-with-jmeter.md)
+- [MySQL / Redis 数据校验](./api-data-validation.md)
+- [Mock 在接口测试中的应用](./api-mock-testing.md)
 
 ### 进阶专题
-- [接口测试常见面试题](.content/test-direction/api-test/api-testing-interview-questions.md)
-- [鉴权与 Token 机制](.content/test-direction/api-test/api-authentication-and-token.md)
-- [错误码、状态码与异常处理](.content/test-direction/api-test/api-status-code-and-error-handling.md)
-- [接口测试报告与缺陷记录](.content/test-direction/api-test/api-testing-report.md)
+- [接口测试常见面试题](./api-testing-interview-questions.md)
+- [鉴权与 Token 机制](./api-authentication-and-token.md)
+- [错误码、状态码与异常处理](./api-status-code-and-error-handling.md)
+- [接口测试报告与缺陷记录](./api-testing-report.md)
 
 ---
 
