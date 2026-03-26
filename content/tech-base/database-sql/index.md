@@ -7,15 +7,15 @@
 
 ## 本部分包含
 
-- [01 SQL 基础语法](../../test-base/database-sql/sql-basics.md)
-- [02 SQL 连接与子查询](../../test-base/database-sql/joins-and-subqueries.md)
-- [03 SQL 窗口函数与高频题](../../test-base/database-sql/window-functions-and-faq.md)
-- [04 测试场景 SQL](../../test-base/database-sql/sql-scenario-problems.md)
-- [05 数据库基础概念](../../test-base/database-sql/database-fundamentals.md)
-- [06 事务与并发控制](../../test-base/database-sql/transactions-and-concurrency-control.md)
-- [07 索引与执行计划](../../test-base/database-sql/indexes-and-execution-plans.md)
-- [08 慢查询与排查基础](../../test-base/database-sql/slow-queries-and-troubleshooting.md)
-- [09 数据库与 SQL 笔面试高频题](../../test-base/database-sql/database-and-sql-interview-faq.md)
+- [01 SQL 基础语法](../../tech-base/database-sql/sql-basics.md)
+- [02 SQL 连接与子查询](../../tech-base/database-sql/joins-and-subqueries.md)
+- [03 SQL 窗口函数与高频题](../../tech-base/database-sql/window-functions-and-faq.md)
+- [04 测试场景 SQL](../../tech-base/database-sql/sql-scenario-problems.md)
+- [05 数据库基础概念](../../tech-base/database-sql/database-fundamentals.md)
+- [06 事务与并发控制](../../tech-base/database-sql/transactions-and-concurrency-control.md)
+- [07 索引与执行计划](../../tech-base/database-sql/indexes-and-execution-plans.md)
+- [08 慢查询与排查基础](../../tech-base/database-sql/slow-queries-and-troubleshooting.md)
+- [09 数据库与 SQL 笔面试高频题](../../tech-base/database-sql/database-and-sql-interview-faq.md)
 
 ---
 
