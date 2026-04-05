@@ -390,7 +390,7 @@ function renderNav(data, keyword = "") {
                                 const topicExpanded = state.expandedTopics.has(topic.id);
                                 const topicActive =
                                   state.activeLevel === "topic" && state.activeId === topic.id;
-                                const articles = topic.visibleArticles || [];
+                                const articles = topic.visibleArticles || topic.articles || [];
 
                                 return `
                                   <div class="tree-topic">
