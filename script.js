@@ -8,7 +8,7 @@ const subBreadcrumb = document.getElementById("subBreadcrumb");
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
-const reviewData = window.reviewData || [];
+const reviewTreeData = Array.isArray(window.reviewData) ? window.reviewData : [];
 const contentBaseUrl = new URL("./", window.location.href);
 let suppressHashChange = false;
 
@@ -25,7 +25,7 @@ function getDefaultState(data) {
   };
 }
 
-const state = getDefaultState(reviewData);
+const state = getDefaultState(reviewTreeData);
 
 const allowedHtmlTags = new Set([
   "a",
@@ -100,7 +100,7 @@ function buildIndexes(data) {
   return { sectionMap, topicMap, articleMap };
 }
 
-const indexes = buildIndexes(reviewData);
+const indexes = buildIndexes(reviewTreeData);
 
 function getSectionById(id) {
   return indexes.sectionMap.get(id) || null;
@@ -221,7 +221,7 @@ function openItem(level, id) {
   if (!lookup) return;
 
   setActive(level, id);
-  renderNav(reviewData, searchInput.value);
+  renderNav(reviewTreeData, searchInput.value);
   loadDocument(buildDocPayload(level, lookup));
   syncHash(level, id);
 
@@ -240,7 +240,7 @@ function toggleExpand(kind, id) {
     bucket.add(id);
   }
 
-  renderNav(reviewData, searchInput.value);
+  renderNav(reviewTreeData, searchInput.value);
 }
 
 function isMatch(text, keyword) {
@@ -302,7 +302,7 @@ function getVisibleTree(data, keyword) {
 function autoExpandForKeyword(keyword) {
   if (!keyword) return;
 
-  reviewData.forEach(group => {
+  reviewTreeData.forEach(group => {
     group.sections.forEach(section => {
       const sectionMatch = isMatch(section.title, keyword);
       (section.topics || []).forEach(topic => {
@@ -575,7 +575,7 @@ function init() {
     setActive(routeState.level, routeState.id);
   }
 
-  renderNav(reviewData);
+  renderNav(reviewTreeData);
   const defaultArticle =
     state.activeLevel === "article" ? getArticleById(state.activeId) : null;
   const defaultTopic =
@@ -602,7 +602,7 @@ function init() {
 }
 
 searchInput.addEventListener("input", () => {
-  renderNav(reviewData, searchInput.value);
+  renderNav(reviewTreeData, searchInput.value);
 });
 
 menuBtn.addEventListener("click", () => {
@@ -631,7 +631,7 @@ window.addEventListener("hashchange", () => {
   }
 
   setActive(routeState.level, routeState.id);
-  renderNav(reviewData, searchInput.value);
+  renderNav(reviewTreeData, searchInput.value);
   loadDocument(buildDocPayload(routeState.level, routeState.item));
 });
 
