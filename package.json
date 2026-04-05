@@ -1,0 +1,11 @@
+{
+  "name": "qa-review-site",
+  "private": true,
+  "scripts": {
+    "sync:content": "node scripts/sync-content-config.js",
+    "validate": "node scripts/validate-content.js",
+    "generate": "node scripts/generate-data.js",
+    "build:data": "npm run validate && npm run generate",
+    "refresh:data": "npm run sync:content && npm run build:data"
+  }
+}

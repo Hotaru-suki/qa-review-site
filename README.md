@@ -1,55 +1,19 @@
-# 测试复习知识库
+# 测试与技术知识库
 
-一个基于 **HTML + CSS + JavaScript + Markdown** 构建的静态知识库，用于系统整理测试求职相关内容，包括：
+## 项目介绍
 
-- 测试方向知识
-- 技术基础知识
-- 代码题目
-- 面试题目
+这是一个基于 `HTML + CSS + JavaScript + Markdown` 的纯静态知识库项目，用来组织测试方向、技术基础、代码题目和面试题目相关内容。
 
-项目采用 **左侧多级导航 + 右侧单篇文档阅读** 的形式，适合长期维护、持续补充和跨设备访问，也可直接部署到 **GitHub Pages** 作为个人复习站或知识站点。
+项目目标不是简单堆 Markdown，而是把内容整理成一棵稳定的知识树：
 
----
+- 一级分类：大的知识域
+- 二级专题：某个专题的总览页
+- 三级主题：专题下的知识组
+- 四级文章：具体知识点正文
 
-## 项目预览
+站点形态是左侧多级导航、右侧正文阅读。它不依赖后端，适合本地长期维护，也适合部署到 GitHub Pages 或其他静态托管平台。
 
-### 核心形态
-- 左侧：搜索 + 一级分类 + 二级专题 + 三级文章
-- 右侧：当前点击文档的正文内容
-- 内容：统一使用 Markdown 管理
-- 部署：纯静态页面，可直接托管到 GitHub Pages
-
-### 适用场景
-- 测试岗 / 游戏测试岗笔试面试复习
-- 技术基础知识整理
-- 高频代码题和面试题归档
-- 个人长期知识沉淀
-
----
-
-## 项目特点
-
-- **纯静态实现**，无需后端
-- **支持多级导航**
-- **二级专题页 + 三级知识点页**
-- **Markdown 内容驱动**
-- **结构清晰，便于扩展**
-- **适合 GitHub Pages 部署**
-- **可在电脑、手机、平板查看**
-
----
-
-## 技术栈
-
-- HTML
-- CSS
-- JavaScript
-- Markdown
-- marked.js（用于 Markdown 渲染）
-
----
-
-## 目录结构
+## 项目结构
 
 ```text
 qa-review-site/
@@ -57,7 +21,20 @@ qa-review-site/
 ├─ style.css
 ├─ script.js
 ├─ data.js
+├─ content.config.js
+├─ package.json
 ├─ README.md
+├─ scripts/
+│  ├─ content-tree.js
+│  ├─ sync-content-config.js
+│  ├─ validate-content.js
+│  └─ generate-data.js
+├─ config/
+│  └─ content/
+│     ├─ test-direction.js
+│     ├─ tech-base.js
+│     ├─ code-problems.js
+│     └─ interviews.js
 └─ content/
    ├─ welcome.md
    ├─ test-direction/
@@ -66,224 +43,177 @@ qa-review-site/
    └─ interviews/
 ```
 
----
+核心文件职责如下：
 
-## 页面结构设计
+- [index.html](/mnt/c/Users/siest/Desktop/qa-review-site/index.html)：页面骨架
+- [style.css](/mnt/c/Users/siest/Desktop/qa-review-site/style.css)：站点样式
+- [script.js](/mnt/c/Users/siest/Desktop/qa-review-site/script.js)：前端导航渲染、状态切换、Markdown 加载
+- [data.js](/mnt/c/Users/siest/Desktop/qa-review-site/data.js)：前端使用的知识树数据，生成产物，不手工编辑
+- [content/](/mnt/c/Users/siest/Desktop/qa-review-site/content)：所有专题概述页和知识页正文
+- [content.config.js](/mnt/c/Users/siest/Desktop/qa-review-site/content.config.js)：配置入口，负责汇总各分类配置
+- [config/content/](/mnt/c/Users/siest/Desktop/qa-review-site/config/content)：按一级分类拆分的顺序配置
+- [scripts/content-tree.js](/mnt/c/Users/siest/Desktop/qa-review-site/scripts/content-tree.js)：共享目录扫描、标题提取、知识树构建逻辑
+- [scripts/sync-content-config.js](/mnt/c/Users/siest/Desktop/qa-review-site/scripts/sync-content-config.js)：把新增目录和文章同步到配置中
+- [scripts/validate-content.js](/mnt/c/Users/siest/Desktop/qa-review-site/scripts/validate-content.js)：校验标题、目录接入和缺失文件
+- [scripts/generate-data.js](/mnt/c/Users/siest/Desktop/qa-review-site/scripts/generate-data.js)：生成最终的 [data.js](/mnt/c/Users/siest/Desktop/qa-review-site/data.js)
 
-### 一级分类
-用于分组展示，例如：
+## 如何配置运行
 
-- 测试方向
-- 技术基础
-- 代码题目
-- 面试题目
+### 环境要求
 
-### 二级专题
-用于专题总览，拥有自己的 `index.md`，例如：
+- Node.js：用于执行维护脚本
+- 任意静态服务器：用于本地预览页面
 
-- 测试基础
-- 接口测试
-- 测试工具
-- 计算机网络
+这个项目没有打包步骤，Node 只用于维护知识树数据，不参与页面运行时。
 
-### 三级文章
-用于记录具体知识点或题目，例如：
+### 安装与准备
 
-- Postman
-- TCP 三次握手
-- 冒烟测试
-- 回归测试
+项目没有额外依赖，克隆后即可使用。
 
----
+如需使用 npm 脚本，确保本机可执行：
 
-## 当前内容组织方式
+```bash
+node -v
+npm -v
+```
 
-项目采用：
+### 本地运行
 
-- **一级分类**：只做导航分组
-- **二级专题页**：负责总览和引导
-- **三级文章页**：负责具体知识点展开
+方式一：使用 VS Code Live Server
 
-这种结构既适合阅读，也适合长期扩展，不会因为内容变多而失去层次。
+1. 用 VS Code 打开项目目录
+2. 安装 `Live Server`
+3. 右键 [index.html](/mnt/c/Users/siest/Desktop/qa-review-site/index.html)
+4. 选择 `Open with Live Server`
 
----
-
-## 本地运行
-
-### 方法一：VS Code + Live Server
-1. 用 VS Code 打开项目文件夹
-2. 安装扩展 **Live Server**
-3. 右键 `index.html`
-4. 选择 **Open with Live Server**
-
-### 方法二：Python 静态服务器
-
-在项目根目录运行：
+方式二：使用 Python 静态服务器
 
 ```bash
 python -m http.server 8000
 ```
 
-然后浏览器访问：
+然后访问：
 
 ```text
 http://localhost:8000
 ```
 
----
+### 维护脚本
 
-## 部署到 GitHub Pages
-
-1. 创建 GitHub 仓库  
-2. 上传项目文件到仓库根目录  
-3. 打开仓库：
-   - `Settings`
-   - `Pages`
-4. 选择：
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/ (root)`
-5. 保存并等待生成访问链接
-
-生成后通常类似：
-
-```text
-https://你的用户名.github.io/qa-review-site/
-```
-
----
-
-## 如何新增内容
-
-### 新增二级专题
-在 `data.js` 中添加新的 `section(...)`，并在对应目录下创建 `index.md`。
-
-### 新增三级文章
-在某个 `section` 的 `children` 中添加新的 `article(...)`，并创建对应 Markdown 文件。
-
----
-
-## 推荐维护方式
-
-建议长期按以下规则维护：
-
-- 一个专题一个目录
-- 二级专题统一使用 `index.md`
-- 三级知识点独立成文
-- 高频模块优先整理
-- 结构尽量稳定，内容持续补充
-
----
-
-## 适合整理的内容
-
-### 测试方向
-- 测试基础
-- 接口测试
-- 性能测试
-- 兼容性测试
-- 弱网测试
-- 测试工具
-
-### 技术基础
-- Python
-- C++
-- 数据结构与算法
-- 数据库与 SQL
-- Linux
-- 计算机网络
-- 操作系统
-
-### 代码题目
-- 代码阅读
-- Bug 定位
-- SQL 题
-- C++ 题
-- Python 题
-- 场景设计题
-
-### 面试题目
-- 测试岗面试题
-- 技术基础面试题
-- 游戏测试面试题
-- 项目经历题
-- 自我介绍与反问
-
----
-
-## 后续可扩展方向
-
-- 文档目录锚点
-- 上一篇 / 下一篇跳转
-- 阅读位置记忆
-- 收藏 / 重点标记
-- 标签系统
-- 更强的搜索能力
-- GitHub Pages 在线访问优化
-
----
-
-## 项目目标
-
-这个项目的目标不是做一个复杂的内容管理系统，而是做一个：
-
-**轻量、清晰、长期可维护的个人复习知识库。**
-
-它更偏向：
-
-- 结构化整理
-- 快速查阅
-- 面试前复盘
-- 长期沉淀个人知识体系
-
----
-
-## 快速开始
-
-### 1. 克隆或下载项目
-把整个项目文件夹放到本地。
-
-### 2. 启动本地静态服务
-推荐使用 VS Code 的 Live Server，或者：
+项目内置了这几个脚本：
 
 ```bash
-python -m http.server 8000
+npm run sync:content
+npm run validate
+npm run generate
+npm run build:data
+npm run refresh:data
 ```
 
-### 3. 打开网页
-访问：
+含义如下：
 
-```text
-http://localhost:8000
+- `npm run sync:content`：扫描 `content/`，把新增目录和文章同步到分类配置
+- `npm run validate`：校验 Markdown 标题、目录接入和文件缺失
+- `npm run generate`：生成前端用的 [data.js](/mnt/c/Users/siest/Desktop/qa-review-site/data.js)
+- `npm run build:data`：校验后生成
+- `npm run refresh:data`：同步配置后，再校验并生成
+
+日常维护推荐直接执行：
+
+```bash
+npm run refresh:data
 ```
 
-### 4. 修改内容
-- 改页面结构：`index.html`
-- 改页面样式：`style.css`
-- 改交互逻辑：`script.js`
-- 改导航配置：`data.js`
-- 改正文内容：`content/*.md`
+## 如何使用
 
+### 浏览知识库
+
+启动静态服务器后，页面左侧显示知识树，右侧显示正文内容。
+
+使用方式：
+
+- 点击二级专题：打开专题概述页
+- 点击三级主题：打开主题概述页
+- 点击四级文章：打开具体知识点正文
+- 使用顶部搜索框：按标题过滤导航树
+
+### 新增内容
+
+新增内容时，优先把内容放入现有知识树，不要在根目录散放文件。
+
+推荐流程：
+
+1. 在 [content/](/mnt/c/Users/siest/Desktop/qa-review-site/content) 下找到对应分类和专题
+2. 如果是新增专题或主题，创建目录并补 `index.md`
+3. 如果是新增知识点，直接新增对应 Markdown 文件
+4. 给每个新文件写清晰的一级标题 `# 标题`
+5. 执行：
+
+```bash
+npm run refresh:data
+```
+
+### 调整顺序
+
+如果需要人工调整展示顺序，不直接改 [data.js](/mnt/c/Users/siest/Desktop/qa-review-site/data.js)，而是改对应的分类配置文件：
+
+- [test-direction.js](/mnt/c/Users/siest/Desktop/qa-review-site/config/content/test-direction.js)
+- [tech-base.js](/mnt/c/Users/siest/Desktop/qa-review-site/config/content/tech-base.js)
+- [code-problems.js](/mnt/c/Users/siest/Desktop/qa-review-site/config/content/code-problems.js)
+- [interviews.js](/mnt/c/Users/siest/Desktop/qa-review-site/config/content/interviews.js)
+
+改完后重新执行：
+
+```bash
+npm run build:data
+```
+
+## 如何维护
+
+### 维护原则
+
+- 概述页讲范围、结构和重点，不写成长篇正文
+- 知识页负责讲透单个知识点，不写成泛泛提纲
+- 同一知识点尽量只保留一套正文
+- 优先维护 `content/` 和分类配置，不手工编辑 [data.js](/mnt/c/Users/siest/Desktop/qa-review-site/data.js)
+
+### Markdown 编写约定
+
+- 每个 `index.md` 代表一个概述页
+- 每篇正文文件只讲一个主要知识点
+- 每个 Markdown 至少应包含一级标题 `# 标题`
+- 如有需要，可使用 frontmatter：
+
+```md
 ---
-
-## 仓库首页展示建议
-
-如果你要把它作为 GitHub 仓库首页展示项目，建议：
-
-- 保持 README 简洁清楚
-- 在仓库里补几张页面截图
-- 补一个在线访问链接
-- 在提交记录中持续更新知识模块
-
-你也可以后续加入：
-
-- 项目截图
-- 在线演示地址
-- 更新日志
-- 学习路线说明
-
+nav_title: 导航标题
+order: 10
 ---
+```
 
-## License
+说明：
 
-仅用于个人学习与知识整理。
+- `nav_title`：只影响导航标题
+- `order`：用于同级显式排序，优先级高于默认顺序
+
+### 推荐维护顺序
+
+当你新增或调整内容时，建议按这个顺序操作：
+
+1. 修改 [content/](/mnt/c/Users/siest/Desktop/qa-review-site/content) 中的 Markdown
+2. 如有新目录或新文章，执行 `npm run sync:content`
+3. 如需人工调顺序，修改对应的 `config/content/*.js`
+4. 执行 `npm run validate`
+5. 执行 `npm run generate`
+6. 本地启动静态服务器检查页面效果
+
+### 常见维护边界
+
+- 不手工编辑 [data.js](/mnt/c/Users/siest/Desktop/qa-review-site/data.js)
+- 不把未接入知识树的 Markdown 长期留在仓库里
+- 不把不同专题的正文混写到同一篇文件里
+- 不把正文页退化成简单提纲
+
+### 部署说明
+
+这是纯静态项目，可以直接部署到 GitHub Pages 或任意静态托管服务。部署时只需要确保仓库中文件完整，不需要额外构建服务。
