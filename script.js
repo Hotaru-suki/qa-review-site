@@ -9,6 +9,8 @@ const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
 const reviewData = window.reviewData || [];
+const contentBaseUrl = new URL("./", window.location.href);
+let suppressHashChange = false;
 
 function getDefaultState(data) {
   const firstSection = data[0]?.sections?.[0] || null;
@@ -112,6 +114,54 @@ function getArticleById(id) {
   return indexes.articleMap.get(id) || null;
 }
 
+function getRouteHash(level, id) {
+  return `#${level}:${encodeURIComponent(id)}`;
+}
+
+function getStateFromHash() {
+  const hash = window.location.hash.replace(/^#/, "").trim();
+
+  if (!hash) {
+    return null;
+  }
+
+  const separatorIndex = hash.indexOf(":");
+  if (separatorIndex <= 0) {
+    return null;
+  }
+
+  const level = hash.slice(0, separatorIndex);
+  const id = decodeURIComponent(hash.slice(separatorIndex + 1));
+
+  if (!["section", "topic", "article"].includes(level) || !id) {
+    return null;
+  }
+
+  const item =
+    level === "section"
+      ? getSectionById(id)
+      : level === "topic"
+        ? getTopicById(id)
+        : getArticleById(id);
+
+  if (!item) {
+    return null;
+  }
+
+  return { level, id, item };
+}
+
+function syncHash(level, id) {
+  const nextHash = getRouteHash(level, id);
+
+  if (window.location.hash === nextHash) {
+    return;
+  }
+
+  suppressHashChange = true;
+  window.location.hash = nextHash;
+}
+
 function buildDocPayload(level, item) {
   if (level === "section") {
     return {
@@ -173,6 +223,7 @@ function openItem(level, id) {
   setActive(level, id);
   renderNav(reviewData, searchInput.value);
   loadDocument(buildDocPayload(level, lookup));
+  syncHash(level, id);
 
   if (window.innerWidth <= 980) {
     sidebar.classList.remove("open");
@@ -497,7 +548,7 @@ async function loadDocument(doc) {
   docContent.innerHTML = `<div class="loading-state">正在加载内容...</div>`;
 
   try {
-    const response = await fetch(doc.file);
+    const response = await fetch(new URL(doc.file, contentBaseUrl));
 
     if (!response.ok) {
       throw new Error(`加载失败：${response.status}`);
@@ -518,6 +569,12 @@ async function loadDocument(doc) {
 }
 
 function init() {
+  const routeState = getStateFromHash();
+
+  if (routeState) {
+    setActive(routeState.level, routeState.id);
+  }
+
   renderNav(reviewData);
   const defaultArticle =
     state.activeLevel === "article" ? getArticleById(state.activeId) : null;
@@ -528,16 +585,19 @@ function init() {
 
   if (defaultArticle) {
     loadDocument(buildDocPayload("article", defaultArticle));
+    syncHash("article", defaultArticle.id);
     return;
   }
 
   if (defaultTopic) {
     loadDocument(buildDocPayload("topic", defaultTopic));
+    syncHash("topic", defaultTopic.id);
     return;
   }
 
   if (defaultSection) {
     loadDocument(buildDocPayload("section", defaultSection));
+    syncHash("section", defaultSection.id);
   }
 }
 
@@ -557,6 +617,22 @@ document.addEventListener("click", event => {
   ) {
     sidebar.classList.remove("open");
   }
+});
+
+window.addEventListener("hashchange", () => {
+  if (suppressHashChange) {
+    suppressHashChange = false;
+    return;
+  }
+
+  const routeState = getStateFromHash();
+  if (!routeState) {
+    return;
+  }
+
+  setActive(routeState.level, routeState.id);
+  renderNav(reviewData, searchInput.value);
+  loadDocument(buildDocPayload(routeState.level, routeState.item));
 });
 
 init();

@@ -214,6 +214,28 @@ order: 10
 - 不把不同专题的正文混写到同一篇文件里
 - 不把正文页退化成简单提纲
 
-### 部署说明
+### GitHub Pages 部署
 
-这是纯静态项目，可以直接部署到 GitHub Pages 或任意静态托管服务。部署时只需要确保仓库中文件完整，不需要额外构建服务。
+这是纯静态项目，可以直接部署到 GitHub Pages 或任意静态托管服务，不需要额外构建服务。
+
+如果部署到 GitHub Pages，推荐直接发布仓库根目录：
+
+1. 打开仓库 `Settings`
+2. 进入 `Pages`
+3. `Source` 选择 `Deploy from a branch`
+4. 分支选择 `main`（或你的发布分支）
+5. 文件夹选择 `/ (root)`
+6. 保存后等待 GitHub 生成站点
+
+项目已经保留了 [.nojekyll](/mnt/c/Users/siest/Desktop/qa-review-site/.nojekyll)，可避免 GitHub Pages 把以下划线目录当作 Jekyll 特殊目录处理。
+
+### GitHub Pages 访问说明
+
+- 首页可通过仓库 Pages 地址直接访问，例如 `https://<用户名>.github.io/<仓库名>/`
+- 站点内部阅读状态会同步到 URL hash，例如 `#article:welcome`
+- 因为使用 hash 路由，切换文章、刷新页面、分享当前文章链接时都能继续正常打开对应内容
+- 如果访问了无效路径，GitHub Pages 会返回 [404.html](/mnt/c/Users/siest/Desktop/qa-review-site/404.html) 并提供回首页入口
+
+### 其他静态托管
+
+部署到其他静态托管平台时，同样只需要确保仓库中文件完整即可。
