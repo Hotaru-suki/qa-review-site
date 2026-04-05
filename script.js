@@ -193,6 +193,16 @@ function setActive(level, id) {
   state.activeLevel = level;
   state.activeId = id;
 
+  if (level === "section") {
+    const section = getSectionById(id);
+    if (section) {
+      state.expandedSections.add(section.id);
+      (section.topics || []).forEach(topic => {
+        state.expandedTopics.add(topic.id);
+      });
+    }
+  }
+
   if (level === "topic") {
     const topic = getTopicById(id);
     if (topic) {
